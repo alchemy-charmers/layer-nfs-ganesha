@@ -1,0 +1,10 @@
+includes:
+  - layer:basic
+defines:
+# Danger this is not the same format as config.yaml!
+# type: null, boolean, object, array, number, string
+# see: http://json-schema.org/documentation.html
+  file_name:
+    type: string
+    default: "VERSION"
+    description: "Name of the file with version number"

@@ -1,0 +1,25 @@
+{%- for export in exports -%}
+EXPORT
+{
+    Export_Id = {{ loop.index }};
+    Path = {{ export.path }};
+    Pseudo = {{ export.path }};
+    {% if export.access -%}
+    Access_Type = {{ export.access }};
+    {% endif -%}
+    {%- if export.acls -%}
+    {%- for acl in export.acls -%}
+    {%- if acl.clients -%}
+    CLIENT {
+        Access = {{ acl.clients }};
+        Access_type = {{ acl.access }};
+    }
+    {% endif -%}
+    {%- endfor -%}
+    {%- endif -%}
+    FSAL {
+            # Deault to the POSIX FSAL
+	    Name = VFS;
+    }
+}
+{% endfor %}

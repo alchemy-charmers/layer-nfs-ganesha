@@ -1,0 +1,6 @@
+#!/usr/local/sbin/charm-env python3
+
+from lib_nfs_ganesha import NfsganeshaHelper
+
+ganesha = NfsganeshaHelper()
+ganesha.restart_service()

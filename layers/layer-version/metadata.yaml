@@ -1,0 +1,19 @@
+name: version
+summary: Sets version to contents of VERSION file in charm
+maintainer: Chris <sanders.chris@gmail.com>
+description: |
+  Used with a build processes that puts version information in a VERSION file sets version
+tags:
+  # Replace "misc" with one or more whitelisted tags from this list:
+  # https://jujucharms.com/docs/stable/authors-charm-metadata
+  - misc
+subordinate: false
+#provides:
+#  provides-relation:
+#    interface: interface-name
+#requires:
+#  requires-relation:
+#    interface: interface-name
+#peers:
+#  peer-relation:
+#    interface: interface-name

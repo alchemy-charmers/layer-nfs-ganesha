@@ -1,0 +1,14 @@
+name: nfs-ganesha
+summary: NFS server in User Space
+maintainer: James Hebden <james@ec0.io>
+description: |
+  NFS-Ganesha is a NFS Server running in user space with a large cache. It
+  comes with various backend modules to support different file systems
+  and namespaces. This charm supports the POSIX backend and
+  configuration of exports and ACLs.
+tags:
+  - storage 
+subordinate: false
+series:
+  - bionic
+  - xenial

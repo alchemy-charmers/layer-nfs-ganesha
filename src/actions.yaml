@@ -1,0 +1,4 @@
+restart:
+  description: "Restart NFS Ganesha"
+reload:
+  description: "Restart NFS Ganesha"

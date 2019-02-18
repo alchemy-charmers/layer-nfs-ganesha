@@ -1,0 +1,8 @@
+includes:
+  - layer:basic
+  - layer:apt
+  - layer:version
+options:
+  version:
+    file_name: "repo-info"
+repo: https://github.com/pirate-charmers/layer-nfs-ganesha

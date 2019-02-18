@@ -2,6 +2,7 @@ from lib_nfs_ganesha import NfsganeshaHelper
 from charmhelpers.core import hookenv
 from charms.reactive import (
     set_flag,
+    clear_flag,
     when_not,
     when
 )
@@ -15,6 +16,11 @@ def install_nfs_ganesha():
     ganesha.install_nfs_ganesha()
     set_flag('nfs-ganesha.installed')
     hookenv.status_set('maintenance', 'Installed nfs-ganesha')
+
+
+@when('config.changed')
+def reconfigure_nfs_ganesha():
+    clear_flag('nfs_ganesha.configured')
 
 
 @when_not('nfs-ganesha.configured')

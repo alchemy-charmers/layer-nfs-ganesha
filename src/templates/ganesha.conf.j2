@@ -1,4 +1,19 @@
-{%- for export in exports -%}
+NFS_CORE_PARAM
+{
+    mount_path_pseudo = true;
+    Protocols = 3,4,9P;
+}
+LOG
+{
+    Default_Log_Level = WARN;
+    Facility
+    {
+        name = STDOUT;
+        destination = stdout;
+        enable = active;
+    }
+}
+{% for export in exports -%}
 EXPORT
 {
     Export_Id = {{ loop.index }};
@@ -19,7 +34,7 @@ EXPORT
     {%- endif -%}
     FSAL {
             # Deault to the POSIX FSAL
-	    Name = VFS;
+        Name = VFS;
     }
 }
 {% endfor %}

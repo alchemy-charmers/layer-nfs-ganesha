@@ -33,7 +33,10 @@ class NfsganeshaHelper():
         return True
 
     def install_nfs_ganesha(self):
-        fetch.apt_install('nfs-ganesha')
+        fetch.apt_install([
+            'nfs-ganesha',
+            'nfs-ganesha-vfs'
+        ])
         self.start_enable_service()
         return True
 

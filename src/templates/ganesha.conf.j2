@@ -8,10 +8,22 @@ LOG
     Default_Log_Level = WARN;
     Facility
     {
-        name = STDOUT;
-        destination = stdout;
-        enable = active;
+        name = FILE;
+        destination = /var/log/ganesha/ganesha.log;
+        enable = default;
     }
+    Components
+    {
+    	ALL = WARN;
+	EXPORT = DEBUG;
+	RPC = DEBUG;
+    }
+}
+EXPORT_DEFAULTS
+{
+	SecType = sys;
+	Protocols = 4;
+	Transports = TCP;
 }
 {% for export in exports -%}
 EXPORT
@@ -19,6 +31,7 @@ EXPORT
     Export_Id = {{ loop.index }};
     Path = {{ export.path }};
     Pseudo = {{ export.path }};
+    Disable_ACL = true;
     {% if export.access -%}
     Access_Type = {{ export.access }};
     {% endif -%}
@@ -26,14 +39,13 @@ EXPORT
     {%- for acl in export.acls -%}
     {%- if acl.clients -%}
     CLIENT {
-        Access = {{ acl.clients }};
+        Clients = {{ acl.clients }};
         Access_type = {{ acl.access }};
     }
     {% endif -%}
     {%- endfor -%}
     {%- endif -%}
     FSAL {
-            # Deault to the POSIX FSAL
         Name = VFS;
     }
 }

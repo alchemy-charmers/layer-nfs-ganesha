@@ -21,6 +21,10 @@ def install_nfs_ganesha():
 @when('config.changed')
 def reconfigure_nfs_ganesha():
     clear_flag('nfs_ganesha.configured')
+    hookenv.status_set('maintenance', 'Configuring nfs-ganesha')
+    ganesha.configure_nfs_ganesha()
+    set_flag('nfs-ganesha.configured')
+    hookenv.status_set('active', 'nfs-ganesha ready')
 
 
 @when_not('nfs-ganesha.configured')

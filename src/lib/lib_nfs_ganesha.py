@@ -23,7 +23,8 @@ class NfsganeshaHelper():
 
     def reload_config(self):
         ''' Reload the config by sending SIGHUP '''
-        host.service('reload', 'nfs-ganesha')
+        # TODO: reload doesn't seem to work from charm hook, restart for now
+        host.service('restart', 'nfs-ganesha')
         return True
 
     def start_enable_service(self):
@@ -108,6 +109,12 @@ class NfsganeshaHelper():
             if ':' in export_entry:
                 options = export_entry.split(':')
                 export['path'] = options[0]
+                if len(options) > 2:
+                    # we have acls
+                    acls = options[2:]
+                    for acl in acls:
+                        export['acls'].extend(
+                            self.parse_acls(acl, export['access']))
                 if len(options) > 1:
                     # we have an export mode
                     # check if it's a supported mode otherwise
@@ -121,15 +128,9 @@ class NfsganeshaHelper():
                         export['access'] = self.default_mode
                 else:
                     export['access'] = self.default_mode
-                if len(options) > 2:
-                    # we have acls
-                    acls = options[2:]
-                    for acl in acls:
-                        export['acls'].extend(
-                            self.parse_acls(acl, export['access']))
             else:
                 # no export mode or acls, use defaults
-                export['path'] = export
+                export['path'] = export_entry
                 export['access'] = self.default_mode
             exports.append(export)
         return exports
